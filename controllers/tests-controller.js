@@ -2,13 +2,13 @@ const db = require("../models");
 
 module.exports = function(app){
 
-    app.post("/addService",(req,res)=>{
+    app.post("/addTest",(req,res)=>{
         console.log(req.body);
-        db.Services.create({
+        db.Tests.create({
 
-            service_name:req.body.name,
-            service_cost:req.body.cost,
-            service_observations: req.body.observations,
+            test_name:req.body.name,
+            test_cost:req.body.cost,
+            test_observations: req.body.observations,
 
 
         }).then((response)=>{
@@ -16,54 +16,54 @@ module.exports = function(app){
         });
     });
 
-    app.get("/services",(req,res) => {
+    app.get("/tests",(req,res) => {
 
     console.log("estamos aqui");
-    db.Services.findAll({
+    db.Tests.findAll({
 
 
-    }).then((services)=>{
+    }).then((tests)=>{
           
             
-            let Services = services.map((obj)=>{
-                let service = obj.dataValues;
-                return service
+            let Tests = tests.map((obj)=>{
+                let test = obj.dataValues;
+                return test
             });
 
            
-            res.render("services",{Services})
+            res.render("tests",{Tests})
     });
     
     });
 
-    app.get("/servicesGet",(req,res) => {
+    app.get("/testsGet",(req,res) => {
 
         console.log("estamos aqui");
-        db.Services.findAll({
+        db.Tests.findAll({
     
     
-        }).then((services)=>{
+        }).then((tests)=>{
               
                 
-                let Services = services.map((obj)=>{
-                    let service = obj.dataValues;
-                    return service
+                let Tests = tests.map((obj)=>{
+                    let test = obj.dataValues;
+                    return test
                 });
     
                
-                res.send(Services);
+                res.send(Tests);
         });
         
         });
 
 
 
-    app.get("/viewService/:id",(req,res)=>{
+    app.get("/viewTest/:id",(req,res)=>{
 
        let id = req.params.id;
        
          
-         db.Services.findOne({
+         db.Tests.findOne({
              where:{id},
             
  
@@ -73,13 +73,13 @@ module.exports = function(app){
          })
      });
 
-     app.put("/updateService/:id",(req,res)=>{
+     app.put("/updateTest/:id",(req,res)=>{
         console.log(req.params.id)
-         db.Services.update({
+         db.Tests.update({
 
-             service_name: req.body.name,
-             service_cost:req.body.cost,
-             service_observations:req.body.observations
+             test_name: req.body.name,
+             test_cost:req.body.cost,
+             test_observations:req.body.observations
 
          },{where:{id:req.params.id}}).then((response) => {
              res.send(response);
@@ -94,9 +94,9 @@ module.exports = function(app){
 
 
 
-     app.delete("/deleteService/:id",(req,res)=>{
+     app.delete("/deleteTest/:id",(req,res)=>{
 
-        db.Services.destroy({where:{id:req.params.id}}).then(()=>{
+        db.Tests.destroy({where:{id:req.params.id}}).then(()=>{
                 
                 res.status(200).end();
                 

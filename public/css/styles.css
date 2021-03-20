@@ -11,7 +11,8 @@ body {
   flex-direction: column;
   flex-wrap: wrap;
   font-family: 'Open Sans Condensed', sans-serif;
-  background-color: lavender;
+  /*background-color: lavender;*/
+  background-color: rgb(235, 236, 237)
 }
 
 div[class*=box] {
@@ -30,8 +31,10 @@ div[class*=box] {
   line-height: 50px;
   height: 50px;
   text-align: center;
-  
   cursor: pointer;
+
+  font-weight: bold;
+  font-size: 20px;
 }
 
 /* 
@@ -41,9 +44,12 @@ div[class*=box] {
 */
 .btn-one {
   color: rgb(255, 255, 255);
+  /*color: rgb(63, 70, 82);*/
   transition: all 0.3s;
   position: relative;
-  background-color: rgba(133, 133, 233, 0.979);
+  /*background-color: rgba(133, 133, 233, 0.979);*/
+  background-color: #89CFF0
+
 }
 .btn-one span {
   transition: all 0.3s;
@@ -90,7 +96,8 @@ div[class*=box] {
 }
 
 #menu{
-    background-color: rgba(133, 133, 233, 0.979);
+  /*background-color: rgba(133, 133, 233, 0.979)*/
+    background-color: #89CFF0;
     height: 100vh;
 }
 
@@ -126,20 +133,26 @@ i{
 }
 
 .myButton {
-	box-shadow:inset 4px -5px 0px 0px rgba(133, 133, 233, 0.979);
-	background:linear-gradient(to bottom, rgba(133, 133, 233, 0.979) 5%,#a490f3 100%);
-	background-color: rgba(133, 133, 233, 0.979),
+	/*box-shadow:inset 4px -5px 0px 0px rgba(133, 133, 233, 0.979);*/
+  box-shadow:inset 4px -5px 0px 0px rgb(191 222 236 / 98%);
+	/*background:linear-gradient(to bottom, rgba(133, 133, 233, 0.979) 5%,#89CFF0 100%);*/
+  background:linear-gradient(to bottom,rgb(191 215 236 / 98%) 5%,#89CFF0 100%);
+	/*background-color: rgba(133, 133, 233, 0.979),]*/
+  background-color: #89CFF0;
 	border-radius:6px;
-	border:1px solid #a548e8;
+	/*border:1px solid #a548e8;*/
+  border:1px solid #89CFF0;
 	display:inline-block;
 	cursor:pointer;
-	color: #a548e8;
+	/*color: #a548e8;*/
+  color: #89CFF0;
 	font-family:Arial;
 	font-size:14px;
 	font-weight:bold;
 	padding:4px 15px;
 	text-decoration:none;
-	text-shadow:0px 0px 0px #7537a8;
+	/*text-shadow:0px 0px 0px #7537a8;*/
+  text-shadow:0px 0px 0px #89CFF0;
 }
 /* .myButton:hover {
 	background:linear-gradient(to bottom,  #916fad 5%, #916fad 100%);

@@ -1,8 +1,14 @@
 $(function(){
-    
-   $("#menu-appointments").on("click", ()=>{
 
-      window.location.replace("/appointments");
+   $("#menu-new-orders").on("click", ()=>{
+
+      window.location.replace("/newOrders");
+   
+   });
+    
+   $("#menu-orders").on("click", ()=>{
+
+      window.location.replace("/orders");
    
    });
    
@@ -31,9 +37,9 @@ $(function(){
    
    }); */
 
-   $("#menu-services").on("click", ()=>{
+   $("#menu-tests").on("click", ()=>{
    
-      window.location.replace("/services");
+      window.location.replace("/tests");
    
    });
 

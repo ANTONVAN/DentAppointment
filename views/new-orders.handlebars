@@ -1,0 +1,357 @@
+       <script src="js/new-orders-handler.js"></script>
+       <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+        <!--FORM-->
+        <div class=" column level p-3 mr-6 overf">
+
+          <h1 class="title is-3">New Order</h1>
+
+          <div id="" class="level card card-header p-3" >
+
+            <div class="columns is-multiline">
+              <div class="column is-one-third">
+                <p class="control has-icons-left">
+                    <input class="input is-small" type="text" placeholder="Patient ID">
+                    <span class="icon is-small is-left">
+                      <i class="fas fa-portrait"></i>
+                    </span>
+                  </p>
+              </div>
+              <div class="column is-one-third">
+                <p class="control has-icons-left">
+                    <input class="input is-small" type="text" placeholder="Name">
+                    <span class="icon is-small is-left">
+                      <i class="fas fa-portrait"></i>
+                    </span>
+                  </p>
+              </div>
+              <div class="column is-one-third">
+                <p class="control has-icons-left">
+                    <input class="input is-small" type="text" placeholder="Last Name">
+                    <span class="icon is-small is-left">
+                      <i class="fas fa-portrait"></i>
+                    </span>
+                  </p>
+              </div>
+
+              <div class="column is-one-third">
+                <div class="level">
+
+                <div class="select is-small">
+                  <select>
+                    <option>Gender</option>
+                    <option>Male</option>
+                    <option>Female</option>
+                  </select>
+                </div>                
+                
+                <p class="control has-icons-left">
+                    <input class="input is-small" id="age"type="number" placeholder="Age">
+                    <span class="icon is-small is-left">
+                      <i class="fas fa-portrait"></i>
+                    </span>
+                  </p>
+                </div>
+              
+              </div>
+
+              <div class="column is-one-third">
+                <p class="control has-icons-left">
+                    <input class="input is-small" id="birth-date" type="date" placeholder="Date of birth">
+                    <span class="icon is-small is-left">
+                      <i class="fas fa-portrait"></i>
+                    </span>
+                  </p>
+              </div>
+              <div class="column is-one-third">
+                <p class="control has-icons-left">
+                    <input class="input is-small" id="phone" type="tel" placeholder="Phone number">
+                    <span class="icon is-small is-left">
+                      <i class="fas fa-phone"></i>
+                    </span>
+                  </p>
+              </div>
+              <div class="column is-one-third">
+                <p class="control has-icons-left">
+                    <input class="input is-small" id="email" type="email" placeholder="email">
+                    <span class="icon is-small is-left">
+                      <i class="fas fa-envelope"></i>
+                    </span>
+                  </p>
+              </div>
+              <div class="column is-one-third">
+                <p class="control has-icons-left">
+                    <input class="input is-small" id="adress" type="text" placeholder="Adress">
+                    <span class="icon is-small is-left">
+                      <i class="fas fa-map"></i>
+                    </span>
+                  </p>
+              </div>
+              <div class="column is-one-third">
+                <label class="checkbox">
+                  <input type="checkbox" id="send-email">
+                  Send by email
+                </label>
+                <label class="checkbox">
+                  <input type="checkbox" id="send-doctor">
+                  Send to doctor
+                </label>
+              </div>
+
+
+              <div class="column is-one-third">
+               <div id="creator" class="x is-fullwidth">
+                   <a href="#" id="create-btn" class=" button is-info m-1 myButton">Create</a>
+              </div>
+              </div>
+
+            </div>
+            
+              
+          </div>
+
+         
+
+          <div id="table">
+              <table class="table is-fullwidth">
+                <thead>
+
+                  <div class="level">
+                    <div class="level-left">
+
+                    <label class="is-size-5 p-2" for="tests">Test:</label>
+
+                          <input class="is-size-5 input" id="test" type="text">
+                      
+                    </div>
+                          
+                  </div>
+
+                  <tr>
+                    
+                    <th>Code</th>
+                    <th>Test</th>
+                    <th>Price</th>
+                    <th>Days</th>
+                    <th>Actions</th>
+                    
+                  </tr>
+
+                  <tbody id="datesTable">
+                    
+                    {{#each Orders}}
+                      {{>orders-block}}
+                    {{/each}}  
+
+                </thead>
+                
+          </div>
+      
+        </div>
+
+        <!--Modals-->
+
+        <!--Create Modal-->
+        <div id="createModal" class="modal card">
+        <div class="modal-content">
+        <span class="closeCreate">&times;</span>
+        
+        <div class=" column level p-3 mr-6">
+
+          <h1 class="is-size-1">Order Creation</h1>
+
+          <div class="field level level-left">
+           
+            <div class="control">
+              <label class="label">Start Time</label>
+              <input class="input" id="start" type="time" id="appt" name="appt"
+                  min="09:00" max="18:00" required>
+               </input>
+            </div>
+
+            <div class="control mr-3">
+              <label class="label">End Time</label>
+              <input class="input" id="end" type="time" id="appt" name="appt"
+                 min="09:00" max="18:00" required>
+               </input>
+            </div>
+
+          </div>
+
+          <div class="field">
+          
+            <div class="control">
+              <label class="label">Patient</label>
+              <input id="patient" class="input patients" list="patientList" name="browser">
+              <datalist id="patientList">
+                
+              </datalist>
+            </div>
+
+            <div class="control">
+              <label class="label">Test</label>
+
+              <input id="" class="input tests" list="testList" name="browser">
+              <datalist id="testList">
+                
+              </datalist>
+            </div>
+
+            <h1 class="has-text-danger is-size-5" id="errorMsg"></h1>
+
+          </div>
+
+          <div class="is-mobil level-right is-narrow">
+            <a id="cancelCreate" class="button is-info m-1 myButton">Cancel</a>
+            <a id="saveCreate" class="button is-info m-1 myButton">Save</a>
+          </div>
+
+        </div>
+      </div>
+        </div>
+
+          <!--View Modal-->
+        
+        <div id="viewModal" class="modal card">
+        <div class="modal-content">
+        <span class="closeView">&times;</span>
+        
+        <div class=" column level p-3 mr-6">
+
+          <h1 class="is-size-1">Order View</h1>
+
+          <div class="field level level-left">
+           
+            <div class="control">
+              <label class="label">Start Time</label>
+              <input class="input" id="startView" type="time" id="appt" name="appt"
+                  min="09:00" max="18:00" required>
+               </input>
+            </div>
+
+            <div class="control mr-3">
+              <label class="label">End Time</label>
+              <input class="input" id="endView" type="time" id="appt" name="appt"
+                 min="09:00" max="18:00" required>
+               </input>
+            </div>
+
+          </div>
+
+          <div class="field">
+          
+            <div class="control">
+              <label class="label">Patient</label>
+              <input id="patienView" class="input patients" list="patientList" name="browser">
+             
+            </div>
+
+            <div class="control">
+              <label class="label">Test</label>
+
+              <input id="testView" class="input tests"  name="browser">
+              
+            </div>
+
+          </div>
+
+          <div class="is-mobil level-right is-narrow">
+            <a id="closeView" class="button is-info m-1">Close</a>
+            
+          </div>
+
+        </div>
+      </div>
+        </div>
+
+            <!--Edit Modal-->
+        
+        <div id="editModal" class="modal card">
+        <div class="modal-content">
+        <span class="closeEdit">&times;</span>
+        
+        <div class=" column level p-3 mr-6">
+
+          <h1 class="is-size-1">Order Edition</h1>
+
+          <div class="field level">
+            
+             <div>
+                <label class="label mr-3">Date</label>
+
+                    <input class="input" type="date" id="editionDate"
+                    
+                    min="2021-01-01" max="2030-12-31">
+                    
+            </div>
+
+            <div class="control">
+              <label class="label">Start Time</label>
+              <input class="input" id="startEdit" type="time" id="appt" name="appt"
+                  min="09:00" max="18:00" required>
+               </input>
+            </div>
+
+            <div class="control mr-3">
+              <label class="label">End Time</label>
+              <input class="input" id="endEdit" type="time" id="appt" name="appt"
+                 min="09:00" max="18:00" required>
+               </input>
+            </div>
+
+          </div>
+
+          <div class="field">
+          
+            <div class="control">
+              <label class="label">Patient</label>
+              <input id="patientEdit" class="input patients" list="patientList" name="browser">
+              <datalist id="patientList">
+                
+              </datalist>
+            </div>
+
+            <div class="control">
+              <label class="label">Test</label>
+
+              <input id="testEdit" class="input tests" list="testList" name="browser">
+              <datalist id="testList">
+                
+              </datalist>
+            </div>
+
+          </div>
+           <h1 class="has-text-danger is-size-5" id="errorMsgEdit"></h1>
+          <div class="is-mobil level-right is-narrow">
+            <a id="cancelEdit" class="button is-info m-1 myButton">Cancel</a>
+            <a id="saveEdit" class="button is-info m-1 myButton">Save</a>
+          </div>
+
+        </div>
+      </div>
+        </div>
+         
+        
+        <!--Delete Modal-->
+        <div id="delete-prompt" class="modal card">
+
+          <!-- Modal content -->
+          <div class="modal-content">
+            <span class="closeDeletion">&times;</span>
+
+            <div class="">
+              <h1>Are you sure you want to delete</h1>
+              <div class="level">
+                <a id="cancelDel" class="button is-info m-1 myButton">Cancel</a>
+                <a id="deleteBtn" class="button is-info m-1 myButton">Delete</a>
+
+              </div>
+            </div>
+            
+            
+          </div>
+        
+        </div>
+
+        
+       
+

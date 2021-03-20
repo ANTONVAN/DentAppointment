@@ -3,7 +3,7 @@ const db = require("../models");
 
 module.exports = function(app){
 
-    app.post("/addAppointment",(req,res)=>{
+    app.post("/addOrder",(req,res)=>{
        
          //////////////
 
@@ -18,11 +18,11 @@ module.exports = function(app){
  
          //////////////////////////////
 
-        db.Appointment.create({
+        db.Order.create({
              date_start:req.body.start,
              date_end:req.body.end,
              patient_id:req.body.patient,
-             service_id:req.body.service
+             test_id:req.body.test
              //date_day:today
 
         }).then((response)=>{
@@ -32,15 +32,15 @@ module.exports = function(app){
         
     });
 
-    app.post("/addAppointment/:date",(req,res)=>{
+    app.post("/addOrder/:date",(req,res)=>{
 
 
-       db.Appointment.create({
+       db.Order.create({
             date_start:req.body.start,
             date_end:req.body.end,
             date_day:req.params.date,
             patient_id:req.body.patient,
-            service_id:req.body.service
+            test_id:req.body.test
             //date_day:today
 
        }).then((response)=>{
@@ -50,18 +50,18 @@ module.exports = function(app){
        
    });
 
-   app.put("/editAppointment/:id",(req,res)=>{
+   app.put("/editOrder/:id",(req,res)=>{
     console.log("----------------------------------------------");
     console.log("params "+req.params.id)
     console.log("body "+JSON.stringify(req.body))
 
-    db.Appointment.update({
+    db.Order.update({
 
          date_start:req.body.start,
          date_end:req.body.end,
          date_day:req.params.editDate,
          patient_id:req.body.patient,
-         service_id:req.body.service
+         test_id:req.body.test
          
          //date_day:today
 
@@ -76,7 +76,7 @@ module.exports = function(app){
     
     });
     
-    app.get("/appointments",(req,res)=>{
+    app.get("/newOrders",(req,res)=>{
         /*
         //////////////
         var today = new Date();
@@ -99,40 +99,40 @@ module.exports = function(app){
             res.render("appointments",{Appointments})
 
         });*/
-        res.render("appointments","")
+        res.render("new-orders","")
     });
 
-    app.get("/appointments/:date",(req,res)=>{
+    app.get("/orders/:date",(req,res)=>{
 
         
         
         let date = req.params.date;
         console.log("RECIVED -----" + date);
 
-        db.Appointment.findAll({
+        db.Order.findAll({
             where:{date_day:date}
             , order: [['date_start', 'ASC']]
         
         }).then((response)=>{
 
-            let Appointments = response.map((obj)=>{
+            let Orders = response.map((obj)=>{
                 let app = obj.dataValues;
                 return app
             });
            
-            res.json(Appointments);
+            res.json(Orders);
 
         });
     });
 
-    app.get("/appointments/dates/:id",(req,res)=>{
+    app.get("/orders/dates/:id",(req,res)=>{
 
         
         
         let id = req.params.id;
    
 
-        db.Appointment.findOne({
+        db.Order.findOne({
             where:{id:id}
         }).then((response)=>{
 
@@ -144,14 +144,14 @@ module.exports = function(app){
         
     });
 
-    app.delete("/deleteAppointment/:id",(req,res)=>{
+    app.delete("/deleteOrder/:id",(req,res)=>{
 
         
         
         let id = req.params.id;
    
 
-        db.Appointment.destroy({
+        db.Order.destroy({
             where:{id:id}
         }).then(()=>{
 
@@ -165,12 +165,12 @@ module.exports = function(app){
 
    //validators
 
-   app.get("/validateService/:id",(req,res)=>{
+   app.get("/validateTest/:id",(req,res)=>{
         let id = req.params.id;
     
 
-        db.Appointment.findAll({
-            where:{service_id:id}
+        db.Order.findAll({
+            where:{test_id:id}
         }).then((response)=>{
 
         
@@ -184,7 +184,7 @@ module.exports = function(app){
     let id = req.params.id;
 
 
-    db.Appointment.findAll({
+    db.Order.findAll({
         where:{patient_id:id}
     }).then((response)=>{
 

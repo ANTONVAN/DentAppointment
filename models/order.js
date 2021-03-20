@@ -1,5 +1,5 @@
 module.exports = function(sequelize,DataTypes){
-    var Appointment = sequelize.define("Appointment",{
+    var Order = sequelize.define("Order",{
        /* id:{
             type:DataTypes.INTEGER,
             allowNull: false,
@@ -20,18 +20,18 @@ module.exports = function(sequelize,DataTypes){
         patient_id:{
             type:DataTypes.INTEGER
         },
-        service_id:{
+        test_id:{
             type:DataTypes.INTEGER
         }
 
     });
-    Appointment.associate = function(models) {
-        Appointment.hasOne(models.Patient, {
+    Order.associate = function(models) {
+        Order.hasOne(models.Patient, {
           foreignKey: 'patient_id', as : 'Patient' 
         });
 
-        Appointment.hasOne(models.Services, {
-            foreignKey: 'service_id', as : 'Service', allowNull:true
+        Order.hasMany(models.Tests, {
+            foreignKey: 'test_id', as : 'Test', allowNull:true
           });
         
     };
@@ -39,5 +39,5 @@ module.exports = function(sequelize,DataTypes){
     
 
 
-    return Appointment;
+    return Order;
 };

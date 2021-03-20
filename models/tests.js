@@ -1,6 +1,6 @@
 module.exports = function(sequelize,DataTypes){
 
-    var Services = sequelize.define("Services",{
+    var Tests = sequelize.define("Tests",{
         /* 
         id: {
             type:DataTypes.INTEGER,
@@ -10,15 +10,15 @@ module.exports = function(sequelize,DataTypes){
             onDelete: 'cascade',
             onUpdate: 'cascade',
         }, */
-        service_name:{
+        test_name:{
             type:DataTypes.STRING,
             allowNull: false,
         },
-        service_cost:{
+        test_cost:{
             type:DataTypes.INTEGER,
             allowNull: false,   
         },
-        service_observations:{
+        test_observations:{
             type:DataTypes.TEXT,
             allowNull: false, 
         }
@@ -36,6 +36,6 @@ module.exports = function(sequelize,DataTypes){
         };
 */
 
-            return Services;
+            return Tests;
 
 };

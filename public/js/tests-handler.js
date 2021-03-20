@@ -15,18 +15,18 @@ $("#create-btn").on("click",function(){
     
    let id = $(this).attr("data-id"); 
    
-   $.ajax("/viewService/"+id,{
+   $.ajax("/viewTest/"+id,{
 
       type:"GET"
 
    }).then((response)=>{
 
-      console.log(response.service_name);
+      console.log(response.test_name);
 
-      $("#view_service_name").text(response.service_name);
+      $("#view_test_name").text(response.test_name);
 
-      $("#view_service_cost").text(response.service_cost);
-      $("#view_service_observations").text(response.service_observations);
+      $("#view_test_cost").text(response.test_cost);
+      $("#view_test_observations").text(response.test_observations);
       
       $("#viewModal").css("display","block");
    });
@@ -42,7 +42,7 @@ $(".edit-icon").on("click",function(){
    let id = $(this).attr("data-id"); 
    target=id;
    
-   $.ajax("/viewService/"+id,{
+   $.ajax("/viewTest/"+id,{
 
       type:"GET"
 
@@ -50,9 +50,9 @@ $(".edit-icon").on("click",function(){
 
       
 
-      $("#edit_service_name").val(response.service_name);
-      $("#edit_service_cost").val(response.service_cost);
-      $("#edit_service_observations").val(response.service_observations);
+      $("#edit_test_name").val(response.test_name);
+      $("#edit_test_cost").val(response.test_cost);
+      $("#edit_test_observations").val(response.test_observations);
 
 
 
@@ -66,56 +66,56 @@ $(".edit-icon").on("click",function(){
     $("#myModal").css("display","none");
  });
 
- //save Service, send object
- $("#saveService").on("click",function(){
+ //save Test, send object
+ $("#saveTest").on("click",function(){
 
-   let Service = {
+   let Test = {
 
-      name: $("#service_name").val(),
-      cost: $("#service_cost").val(),
-      observations:$("#service_observations").val(),
+      name: $("#test_name").val(),
+      cost: $("#test_cost").val(),
+      observations:$("#test_observations").val(),
      
    }
 
-   $.ajax("/addService",{
+   $.ajax("/addTest",{
       type:"POST",
-      data:Service,
+      data:Test,
    }).then((response)=>{
 
-      window.location.replace("/services");
+      window.location.replace("/tests");
    });
 
-   console.log(Service);
+   console.log(Test);
 
    $("#myModal").css("display","none");
 });
 
 $("#saveEdit").on("click",function(event){
 
-   let Service = {
+   let Test = {
 
-      name: $("#edit_service_name").val(),
-      cost: parseInt($("#edit_service_cost").val()),
-      observations:$("#edit_service_observations").val(),
+      name: $("#edit_test_name").val(),
+      cost: parseInt($("#edit_test_cost").val()),
+      observations:$("#edit_test_observations").val(),
      
    };
-   $.ajax("/updateService/" + target,{
+   $.ajax("/updateTest/" + target,{
       type:"PUT",
-      data:Service,
+      data:Test,
    }).then((response)=>{
 
       target= "";
-      window.location.replace("/services");
+      window.location.replace("/tests");
 
 
    });
 
-   console.log(Service);
+   console.log(Test);
 
    $("#myModal").css("display","none");
 });
 
- $(".closeEdit, #cancelEdit, #saveServiceEdit").on("click",function(){
+ $(".closeEdit, #cancelEdit, #saveTestEdit").on("click",function(){
     $("#editModal").css("display","none");
  });
 
@@ -142,25 +142,25 @@ $("#cancelDel, .closeDeletion").on("click",function(){
 
 // #deleteBtn
 $("#deleteBtn").on("click",function(){
-   $.ajax("/validateService/"+target,{
+   $.ajax("/validateTest/"+target,{
       type: "GET"
    }).then((resp)=>{
 
       if(resp.length>0)
       { 
          
-         $("#deletePromt").text("You have appointments with this service! change the appointments first");
+         $("#deletePromt").text("You have appointments with this test! change the appointments first");
       }
       else
       {
-         $.ajax("/deleteService/" + target,{
+         $.ajax("/deleteTest/" + target,{
 
             type:"DELETE"
       
          }).then((response)=>{
            
          $("#delete-prompt").css("display","none");
-          window.location.replace("/services");
+          window.location.replace("/tests");
          });
       }
 

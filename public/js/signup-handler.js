@@ -49,7 +49,7 @@ $(function () {
         type: "POST",
         data: userData2
       }).then(function () {
-        window.location.replace("/appointments");
+        window.location.replace("/orders");
         // If there's an error, log the error
       })
         .catch(function (err) {

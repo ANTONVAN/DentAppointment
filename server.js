@@ -27,8 +27,9 @@ require("./controllers/user-controller.js")(app);
 require("./routes/html-routes.js")(app);
 require("./controllers/user-controller.js")(app);
 require("./controllers/patients-controller.js")(app);
-require("./controllers/services-controller.js")(app);
-require("./controllers/appointment-controller.js")(app);
+require("./controllers/tests-controller.js")(app);
+require("./controllers/orders-controller.js")(app);
+require("./controllers/new-orders-controller.js")(app);
 
 
 

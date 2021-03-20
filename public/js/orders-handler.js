@@ -10,11 +10,11 @@ $(function(){
     //create list 
 
     var patients;
-    var services;
+    var tests;
     var target;
 
     let patientsList = $("#patientList");
-    let servicesList = $("#serviceList");
+    let testsList = $("#testList");
 
     $.ajax("/patientsGet",{
         type:"GET",
@@ -33,20 +33,20 @@ $(function(){
             patientsList.append(add);
         });
 
-        $.ajax("/servicesGet",{
+        $.ajax("/testsGet",{
             type:"GET",
             
            
         }).then((response)=>{
     
-            services = response;
-            services.forEach(service => {
+            tests = response;
+            tests.forEach(test => {
                 
                 let add = $("<option>");
-                add.attr('id', service.id);
-                add.val(service.service_name); 
+                add.attr('id', test.id);
+                add.val(test.test_name); 
                 add.addClass("serclick");
-                servicesList.append(add);
+                testsList.append(add);
             });
 
             ///rest
@@ -56,7 +56,7 @@ $(function(){
     { $("#currentDate").val(today);
 
 
-                $.ajax("/appointments/"+ today, {
+                $.ajax("/orders/"+ today, {
                     type:"GET"
                 }).then((response)=>{
 
@@ -117,9 +117,9 @@ $(function(){
                 $("#errorMsg").text("The start time should be between 8 and 6");
             }
             else{
-                if($("#service").val()=="" || $("#patient").val()=="")
+                if($("#test").val()=="" || $("#patient").val()=="")
                 {
-                    $("#errorMsg").text("You must select a patient and a service");
+                    $("#errorMsg").text("You must select a patient and a test");
                 }
                 else
                 {
@@ -135,9 +135,9 @@ $(function(){
             
                     console.log(patient);
             
-                    let serviceValue = $("#service").val();
-                    let findValues = $('#serviceList [value="' + serviceValue + '"]');
-                    let service = findValues[0].id;
+                    let testValue = $("#test").val();
+                    let findValues = $('#testList [value="' + testValue + '"]');
+                    let test = findValues[0].id;
                     
             
             
@@ -146,7 +146,7 @@ $(function(){
                         start:beginningTime._d,
                         end:endTime._d,
                         patient:patient,
-                        service:service
+                        test:test
                     };
     
                     $("#errorMsg").text("");
@@ -155,14 +155,14 @@ $(function(){
                         if(response===false)
                         {
                             let date = $("#currentDate").val();
-                            $.ajax("/addAppointment/" + date,{
+                            $.ajax("/addOrder/" + date,{
                                 type:"POST",
                                 data:obj,
                             
                             }).then((response)=>{
             
                                 $("#createModal").css("display","none");
-                                $.ajax("/appointments/"+date,{
+                                $.ajax("/orders/"+date,{
                                     type:"GET"
                                 }).
                                 then((response)=>{
@@ -194,7 +194,7 @@ $(function(){
    function editIcon(){
 
     $("#errorMsgEdit").text("");    
-    $.ajax("/appointments/dates/"+target,{
+    $.ajax("/orders/dates/"+target,{
         type:"GET"
 
     }).then((response)=>{
@@ -202,7 +202,7 @@ $(function(){
         console.log(response);
         console.log(patients);
         let editPatient;
-        let editService;
+        let editTest;
 
         editPatient = patients.filter((pat)=>{
             if(pat.id == response.patient_id)
@@ -210,8 +210,8 @@ $(function(){
             
         });
 
-        editService = services.filter((ser)=>{
-            if(ser.id == response.service_id)
+        editTest = tests.filter((ser)=>{
+            if(ser.id == response.test_id)
             {return ser}
             
         });
@@ -225,7 +225,7 @@ $(function(){
          $("#startEdit").val(startEdit);
          $("#endEdit").val(endEdit);
          $("#patientEdit").val(editPatient[0].first_name+" "+editPatient[0].last_name);
-         $("#serviceEdit").val(editService[0].service_name);
+         $("#testEdit").val(editTest[0].test_name);
          $("#editionDate").val(response.date_day);
 
         $("#editModal").css("display","block");
@@ -278,9 +278,9 @@ $(function(){
                 $("#errorMsgEdit").text("The start time should be between 8 and 6");
             }
             else{
-                if($("#serviceEdit").val()=="" || $("#patientEdit").val()=="")
+                if($("#testEdit").val()=="" || $("#patientEdit").val()=="")
                 {
-                    $("#errorMsgEdit").text("You must select a patient and a service");
+                    $("#errorMsgEdit").text("You must select a patient and a test");
                 }
                 else
                 {
@@ -296,9 +296,9 @@ $(function(){
             
                     console.log(patient);
             
-                    let serviceValue = $("#serviceEdit").val();
-                    let findValues = $('#serviceList [value="' + serviceValue + '"]');
-                    let service = findValues[0].id;
+                    let testValue = $("#testEdit").val();
+                    let findValues = $('#testList [value="' + testValue + '"]');
+                    let test = findValues[0].id;
                     let = editionDate = $("#editionDate").val();
             
             
@@ -307,7 +307,7 @@ $(function(){
                         start:beginningTime._d,
                         end:endTime._d,
                         patient:patient,
-                        service:service,
+                        test:test,
                         editDate:editionDate
                     };
     
@@ -317,13 +317,13 @@ $(function(){
                     validateDates(start,end,date,target).then((response)=>{
                         if(!response)
                         {
-                            $.ajax("/editAppointment/" + target,{
+                            $.ajax("/editOrder/" + target,{
                                 type:"PUT",
                                 data:obj,
                             
                             }).then((response)=>{
                                 
-                                $.ajax("/appointments/"+date,{
+                                $.ajax("/orders/"+date,{
                                     type:"GET"
                                 }).
                                 then((response)=>{
@@ -361,7 +361,7 @@ $(function(){
         
       
        
-       $.ajax("/appointments/"+ nextDate, {
+       $.ajax("/orders/"+ nextDate, {
             type:"GET"
         }).then((response)=>{
 
@@ -387,7 +387,7 @@ $(function(){
   // #deleteBtn
   $("#deleteBtn").on("click",function(){
      
-     $.ajax("/deleteAppointment/" + target,{
+     $.ajax("/deleteOrder/" + target,{
   
         type:"DELETE"
   
@@ -395,7 +395,7 @@ $(function(){
   
         let date = $("#currentDate").val();
         
-        $.ajax("/appointments/"+date,{
+        $.ajax("/orders/"+date,{
             type:"GET"
         }).then((response)=>{
             renderDates(response);
@@ -430,12 +430,12 @@ $(function(){
             pat.text(num1[0].first_name+" "+num1[0].last_name);
 
             let serv = $("<th>");
-                let ser1 = services.filter((ser)=>{
-                    if(ser.id == element.service_id)
+                let ser1 = tests.filter((ser)=>{
+                    if(ser.id == element.test_id)
                     {return ser}
                     
                 });
-                serv.text(ser1[0].service_name);
+                serv.text(ser1[0].test_name);
 
             let actions = $("<th>");
             let wrapicons = $("<div>");
@@ -486,7 +486,7 @@ $(function(){
     async function validateDates(start,end,current,identifier){
         let errors = false;
 
-        let test = await $.ajax("/appointments/"+current,{
+        let test = await $.ajax("/orders/"+current,{
             type:"GET"
         }).then((response)=>{
             

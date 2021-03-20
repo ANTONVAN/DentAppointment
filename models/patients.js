@@ -49,9 +49,9 @@ module.exports = function(sequelize,DataTypes){
 
    /* Patient.associate = function(models) {
         
-        Patient.hasMany(models.Appointment, {
+        Patient.hasMany(models.Order, {
             foreignKey: "id",
-           // through: "Appointment"
+           // through: "Order"
               
         });
       };*/
